@@ -72,7 +72,7 @@ export default function ResultQuestion({
         <CardTitle className="flex gap-1 justify-start items-start">
           <span>{questionContent}</span>
         </CardTitle>
-        <CardDescription>Quesetion {index + 1}</CardDescription>
+        <CardDescription>Question {index + 1}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-3">
         {getGroups.map((group, index) =>
