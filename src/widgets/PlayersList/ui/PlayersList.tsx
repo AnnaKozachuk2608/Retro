@@ -11,6 +11,7 @@ import { LoginFormByLink } from "@/features/LoginFormByLink";
 import StartButton from "./StartButton";
 import { useRouter } from "next/router";
 import { redirect } from "next/navigation";
+import {CardDescription, CardHeader} from "@/shared/ui/card";
 
 interface PlayersListProps {
   params: {
@@ -105,6 +106,9 @@ export default function PlayersList({ params, session }: PlayersListProps) {
           {pending ? <Loader2 className="animate-spin" /> : "Ready"}
         </Button>
       )}
+      <CardHeader>
+        <CardDescription>Copy the link to this meeting and share with your team</CardDescription>
+      </CardHeader>
       <StartButton
         params={params}
         getPlayers={getPlayers}
