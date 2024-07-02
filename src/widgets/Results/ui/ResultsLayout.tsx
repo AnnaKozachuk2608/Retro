@@ -19,6 +19,7 @@ import {
   CardTitle,
 } from "@/shared/ui/card";
 import TopAnswers from "./TopAnswers";
+import { redirect } from "next/navigation";
 
 interface ResultsLayoutProps {
   roomId: string;
@@ -38,6 +39,14 @@ export default function ResultsLayout({ roomId, session }: ResultsLayoutProps) {
     api.rooms.endVote
   );
 
+  const { mutate: endMeeting, pending: endMeetingPending } = useApiMutation(
+    api.rooms.endMeeting
+  );
+
+  if (getRoom?.isMeetingEnd) {
+    return redirect("/");
+  }
+
   if (!getPlayers || !getRoom) {
     return <LoaderAnimation />;
   }
@@ -56,6 +65,13 @@ export default function ResultsLayout({ roomId, session }: ResultsLayoutProps) {
       isVoteStarted: true,
     });
   }
+
+  function onEndMeeting() {
+    endMeeting({
+      roomId: roomId as Id<"Rooms">,
+    });
+  }
+
   function onEndVote() {
     endVote({
       roomId: roomId as Id<"Rooms">,
@@ -63,10 +79,7 @@ export default function ResultsLayout({ roomId, session }: ResultsLayoutProps) {
     });
   }
 
-  if (
-    !isEveryBodyAnswerd ||
-    (!getRoom.isVoteStarted && getCurrentPlayer.role !== "Admin")
-  ) {
+  if (!isEveryBodyAnswerd){
     return (
       <RenderPlayers roomId={roomId} isEveryBodyAnswerd={isEveryBodyAnswerd} />
     );
@@ -105,7 +118,7 @@ export default function ResultsLayout({ roomId, session }: ResultsLayoutProps) {
         />
       )}
 
-      {!getRoom.isVoteStarted && (
+       {!getRoom.isVoteStarted && getCurrentPlayer.role === "Admin" && (
         <Button disabled={pending} onClick={onStartVote} className="w-full">
           {pending ? <Loader2 className="animate-spin" /> : "Start vote"}
         </Button>
@@ -122,6 +135,15 @@ export default function ResultsLayout({ roomId, session }: ResultsLayoutProps) {
             {endVotePending ? <Loader2 className="animate-spin" /> : "End vote"}
           </Button>
         )}
+            {getRoom.isVoteEnd && getCurrentPlayer.role === "Admin" && (
+        <Button onClick={onEndMeeting} className="w-full" variant="destructive">
+          {endMeetingPending ? (
+            <Loader2 className="animate-spin" />
+          ) : (
+            "End Meeting"
+          )}
+        </Button>
+      )}
     </div>
   );
 }
