@@ -20,10 +20,7 @@ export default function StartButton({
   getPlayers,
   role,
 }: StartButtonProps) {
-  /* 
-  Этот хук начинает игру, делает isStart === true в бд
-  Мы также вытаскиваем функцию и состояние загрузки
-  */
+  
   const { mutate, pending: pending } = useApiMutation(api.rooms.updateStart);
 
   if (!getPlayers) {
@@ -33,10 +30,9 @@ export default function StartButton({
     getPlayers.length === getPlayers.filter((e) => e.isReady === true).length;
 
   function onClick() {
-    //Вызываем функцию начала игры, которую вытащили из useApiMutation выше
     mutate({
-      roomId: params.roomId, // Из переменной выше берем id комнаты
-      isStart: true, // Создание комнаты завершено, ставим true
+      roomId: params.roomId, 
+      isStart: true, 
     });
   }
   return (

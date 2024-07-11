@@ -57,16 +57,6 @@ export default function Timer({ params, session }: RoomQuestionsProps) {
     updateIsAnswered,
   ]);
 
-  // if (!getRoom || !getCurrentUser) {
-  //   return <LoaderAnimation />;
-  // }
-
-  // if (!getRoom.time) {
-  //   return (
-  //     <Skeleton className="w-11 h-11 absolute top-5 left-5 rounded-full" />
-  //   );
-  // }
-
   return (
     <div
       className={`${(getRoom?.time as number) > 20 ? "text-emerald-400" : "text-rose-400 timer"} flex fixed left-5 top-5 justify-center items-center text-xl font-bold`}

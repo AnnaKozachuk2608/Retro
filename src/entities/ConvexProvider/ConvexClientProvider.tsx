@@ -1,5 +1,3 @@
-// Создаем convex provider и прокидывем в него все children, то есть все компонеты
-
 "use client";
 
 import { ReactNode } from "react";

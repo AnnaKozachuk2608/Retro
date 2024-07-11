@@ -5,13 +5,11 @@ export async function generatePDF(
   groups: Doc<"Groups">[],
   answers: Doc<"Answers">[]
 ) {
-  // create new pdf document
+
   const pdfDoc = await PDFDocument.create();
 
-  // add a blank page to the document
   const page = pdfDoc.addPage();
 
-  // set some text content on the page
   const { width, height } = page.getSize();
   const fontSize = 20;
   const margin = 50;

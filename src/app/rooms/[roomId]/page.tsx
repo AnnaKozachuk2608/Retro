@@ -10,18 +10,15 @@ interface RoomPageProps {
 }
 
 export default async function RoomPage({ params }: RoomPageProps) {
-  // берем сессию из lib.ts  
+  // nehmen session von lib.ts  
   const session = await getSession();
 
-  // если нет сессии, то перекидывем пользователя на главную страницу
   if (!session) {
     return redirect("/");
   }
 
-  // превращаем данные в строку
   const jsonData = JSON.stringify(session, null, 2);
 
-  // Parse the JSON string into a JavaScript object
   const sessionData = JSON.parse(jsonData);
 
 

@@ -35,30 +35,23 @@ export default function IcebreakerQuestion({
   roomId,
   icebreakerQuestionContent,
 }: IcebreakerQuestionProps) {
-  // Состояание, которое берется из инпута icebreaker question
+
   const [icebreakerValue, setIcebreakerValue] = useState<any>("");
   const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
-
-  // Сохранен ли icebreaker question
   const [isSavedicebreaker, setIsSavedicebreaker] = useState(false);
 
-  /*
-    Здесь успользуем кастомный хук для создания icebreaker question, из которого мы вытаскиваем саму фунцию (mutate)
-    И состояние загрузки (pending)
-  */
   const { mutate, pending } = useApiMutation(
     api.rooms.createIcebreakerQuestion
   );
 
   const getIcebreaker = useQuery(api.questiontemplates.getIcebreaker);
 
-  // Создаем функцию, которая вызывается при сохранении icebreaker question
   function onSaveicebreaker(e: any) {
     setIcebreakerValue(e);
-    // Вызываем функцию, которую вытащили из useApiMutation выше
+   
     mutate({
-      roomId: roomId as Id<"Rooms">, // Чтобы typescript не переживал, с момощью as id<"Rooms" говорим, что уверены, какой тип будет у roomId>
-      icebreakerQuestionContent: e, // icebreakerValue берется из useState сверху
+      roomId: roomId as Id<"Rooms">, 
+      icebreakerQuestionContent: e, 
     });
     setIsSavedicebreaker(true);
     setShowSuggestions(false);

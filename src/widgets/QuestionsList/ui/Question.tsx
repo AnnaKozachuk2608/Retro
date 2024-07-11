@@ -37,7 +37,7 @@ export default function Question({
   index,
   questions,
 }: QuestionProps) {
-  // Состояание, которое берется из инпута icebreaker question
+  
   const [questionValue, setQuestionValue] = useState("");
   const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
 

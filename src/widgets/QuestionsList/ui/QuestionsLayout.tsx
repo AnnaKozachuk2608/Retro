@@ -83,24 +83,17 @@ export default function QuestionsLayout({ params, session }: QuestionsLayout) {
     );
   }
 
-  // Создаем функцию, которая вызывается при нажатии кнопки "Start"
   function onStart() {
-    // updateCreate({
-    //   roomId: roomId as Id<"Rooms">,
-    //   isCreated: true
-    // })
-    //Вызываем функцию создания игрока, которую вытащили из useApiMutation выше
     createPlayer({
-      name: session.user.name, // Из сессии в cookie берем имя пользователя
-      playerId: session.user.id, // Из сессии в cookie берем id пользователя
-      roomId: roomId, // Из переменной выше берем id комнаты
-      role: "Admin", // Тот, кто создал комнату, получает роль админа
-      isReady: false, // По умолчанию игрок не готов
+      name: session.user.name, 
+      playerId: session.user.id, 
+      roomId: roomId, 
+      role: "Admin", 
+      isReady: false, 
       isAnswered: false,
-    }).then(() => router.push(`/waitingrooms/${roomId}`)); // После чего перкидываем пользователя в саму комнату
+    }).then(() => router.push(`/waitingrooms/${roomId}`)); 
   }
 
-  // Если страница создания комнаты загружена, рисуем вопросы
   return (
     <div className="flex container flex-col items-end justify-center pt-10 pb-[200px]">
       <IcebreakerQuestion
